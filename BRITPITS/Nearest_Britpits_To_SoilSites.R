@@ -19,7 +19,6 @@ soil_sf <- soil %>% st_as_sf(coords = c('Easting', 'Northing'), remove = T) %>%
 
 ################
 # Lead
-################
 lead <-read.csv("/Volumes/Personal/Metals/BRITPITS/New_datasets/Britpits_England_PB.csv")
 lead_sf <- lead %>% st_as_sf(coords = c('EASTING', 'NORTHING'), remove = T) %>%
   st_set_crs(27700) 
@@ -35,7 +34,6 @@ st_write(lead_joined_sf, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Soil_di
 
 ################
 # Arsenic
-################
 Arsenic <-read.csv("/Volumes/Personal/Metals/BRITPITS/New_datasets/Britpits_England_AS.csv")
 Arsenic_sf <- Arsenic %>% st_as_sf(coords = c('EASTING', 'NORTHING'), remove = T) %>%
   st_set_crs(27700) 
@@ -51,7 +49,6 @@ st_write(Arsenic_joined_sf, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Soil
 
 ################
 # Cadmium
-################
 Cadmium <-read.csv("/Volumes/Personal/Metals/BRITPITS/New_datasets/Britpits_England_CD.csv")
 Cadmium_sf <- Cadmium %>% st_as_sf(coords = c('EASTING', 'NORTHING'), remove = T) %>%
   st_set_crs(27700) 
@@ -68,7 +65,6 @@ st_write(Cadmium_joined_sf, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Soil
 
 ################
 # Plot the distances to nearest BRITPITS
-################
 # create a list on linestrings to plot on map (lines between monitoring station and nearest met station)
 connected <- st_connect(soil_sf, Cadmium_sf)
 
@@ -354,3 +350,61 @@ Cadmium_Final_output <- Cadmium_Final_output %>% rename(Cadmium = Cadmium.x)
 
 st_write(Cadmium_Final_output, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Cadmium_Soil_BRITPITS_Final.shp")
 
+
+####################################################
+# Intersecting each soil site with underlying geology 
+####################################################
+
+####################################################
+# Lead
+####################################################
+
+lead <- st_read("/Volumes/Personal/Metals/BRITPITS/New_datasets/Lead_Soil_BRITPITS_Final.shp")
+
+bedrock <- st_read("/Volumes/Personal/Metals/BGS_Geology_50_V8/Data/gb_50k_bedrock.shp")
+
+lead_bedrock <- st_join(lead, bedrock)
+
+lead_subset <- subset(lead_bedrock, select=-c(LEX_WEB, RANK, BED_EQ_D, MB_EQ_D, 
+                                              FM_EQ_D, SUBGP_EQ_D, GP_EQ_D,
+                                              SUPGP_EQ_D, SAMPLE_, path, ALTERNA, 
+                                              PARENT_, SPONSOR, MAP_SRC, MAP_WEB,
+                                              VERSION, RELEASED))
+
+st_write(lead_subset, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Lead_Soil_BRITPITS_Geology_Bedrock_Final.shp")
+
+####################################################
+# Arsenic
+####################################################
+
+arsenic <- st_read("/Volumes/Personal/Metals/BRITPITS/New_datasets/Arsenic_Soil_BRITPITS_Final.shp")
+
+bedrock <- st_read("/Volumes/Personal/Metals/BGS_Geology_50_V8/Data/gb_50k_bedrock.shp")
+
+arsenic_bedrock <- st_join(arsenic, bedrock)
+
+arsenic_subset <- subset(arsenic_bedrock, select=-c(LEX_WEB, RANK, BED_EQ_D, MB_EQ_D, 
+                                              FM_EQ_D, SUBGP_EQ_D, GP_EQ_D,
+                                              SUPGP_EQ_D, SAMPLE_, path, ALTERNA, 
+                                              PARENT_, SPONSOR, MAP_SRC, MAP_WEB,
+                                              VERSION, RELEASED))
+
+st_write(arsenic_subset, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Arsenic_Soil_BRITPITS_Geology_Bedrock_Final.shp")
+
+####################################################
+# Cadmium
+####################################################
+
+cadmium <- st_read("/Volumes/Personal/Metals/BRITPITS/New_datasets/Cadmium_Soil_BRITPITS_Final.shp")
+
+bedrock <- st_read("/Volumes/Personal/Metals/BGS_Geology_50_V8/Data/gb_50k_bedrock.shp")
+
+cadmium_bedrock <- st_join(cadmium, bedrock)
+
+cadmium_subset <- subset(cadmium_bedrock, select=-c(LEX_WEB, RANK, BED_EQ_D, MB_EQ_D, 
+                                              FM_EQ_D, SUBGP_EQ_D, GP_EQ_D,
+                                              SUPGP_EQ_D, SAMPLE_, path, ALTERNA, 
+                                              PARENT_, SPONSOR, MAP_SRC, MAP_WEB,
+                                              VERSION, RELEASED))
+
+st_write(cadmium_subset, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Cadmium_Soil_BRITPITS_Geology_Bedrock_Final.shp")

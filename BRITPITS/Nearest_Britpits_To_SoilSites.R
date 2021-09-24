@@ -369,7 +369,10 @@ lead_subset <- subset(lead_bedrock, select=-c(LEX_WEB, RANK, BED_EQ_D, MB_EQ_D,
                                               FM_EQ_D, SUBGP_EQ_D, GP_EQ_D,
                                               SUPGP_EQ_D, SAMPLE_, path, ALTERNA, 
                                               PARENT_, SPONSOR, MAP_SRC, MAP_WEB,
-                                              VERSION, RELEASED))
+                                              VERSION, RELEASED, LEX_RCS_I,
+                                              NOM_SCALE, BGS_REF, NOM_BGS_YR,
+                                              UUID, BGSTYPE, OPERATO, DATE_UP,
+                                              EPR_COD, PLANNIN, MPA_COD))
 
 st_write(lead_subset, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Lead_Soil_BRITPITS_Geology_Bedrock_Final.shp")
 
@@ -384,10 +387,13 @@ bedrock <- st_read("/Volumes/Personal/Metals/BGS_Geology_50_V8/Data/gb_50k_bedro
 arsenic_bedrock <- st_join(arsenic, bedrock)
 
 arsenic_subset <- subset(arsenic_bedrock, select=-c(LEX_WEB, RANK, BED_EQ_D, MB_EQ_D, 
-                                              FM_EQ_D, SUBGP_EQ_D, GP_EQ_D,
-                                              SUPGP_EQ_D, SAMPLE_, path, ALTERNA, 
-                                              PARENT_, SPONSOR, MAP_SRC, MAP_WEB,
-                                              VERSION, RELEASED))
+                                                    FM_EQ_D, SUBGP_EQ_D, GP_EQ_D,
+                                                    SUPGP_EQ_D, SAMPLE_, path, ALTERNA, 
+                                                    PARENT_, SPONSOR, MAP_SRC, MAP_WEB,
+                                                    VERSION, RELEASED, LEX_RCS_I,
+                                                    NOM_SCALE, BGS_REF, NOM_BGS_YR,
+                                                    UUID, BGSTYPE, OPERATO, DATE_UP,
+                                                    EPR_COD, PLANNIN, MPA_COD))
 
 st_write(arsenic_subset, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Arsenic_Soil_BRITPITS_Geology_Bedrock_Final.shp")
 
@@ -402,9 +408,12 @@ bedrock <- st_read("/Volumes/Personal/Metals/BGS_Geology_50_V8/Data/gb_50k_bedro
 cadmium_bedrock <- st_join(cadmium, bedrock)
 
 cadmium_subset <- subset(cadmium_bedrock, select=-c(LEX_WEB, RANK, BED_EQ_D, MB_EQ_D, 
-                                              FM_EQ_D, SUBGP_EQ_D, GP_EQ_D,
-                                              SUPGP_EQ_D, SAMPLE_, path, ALTERNA, 
-                                              PARENT_, SPONSOR, MAP_SRC, MAP_WEB,
-                                              VERSION, RELEASED))
+                                                    FM_EQ_D, SUBGP_EQ_D, GP_EQ_D,
+                                                    SUPGP_EQ_D, SAMPLE_, path, ALTERNA, 
+                                                    PARENT_, SPONSOR, MAP_SRC, MAP_WEB,
+                                                    VERSION, RELEASED, LEX_RCS_I,
+                                                    NOM_SCALE, BGS_REF, NOM_BGS_YR,
+                                                    UUID, BGSTYPE, OPERATO, DATE_UP,
+                                                    EPR_COD, PLANNIN, MPA_COD))
 
 st_write(cadmium_subset, "/Volumes/Personal/Metals/BRITPITS/New_datasets/Cadmium_Soil_BRITPITS_Geology_Bedrock_Final.shp")
